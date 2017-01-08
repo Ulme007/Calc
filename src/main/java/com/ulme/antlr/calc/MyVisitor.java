@@ -1,9 +1,8 @@
-package com.ulme.antlr.expressoionevaluator;
+package com.ulme.antlr.calc;
 
-public class MyVisitor extends DemoBaseVisitor<String> {
-
+public class MyVisitor extends CalcBaseVisitor<String> {
     @Override
-    public String visitAddition(DemoParser.AdditionContext ctx) {
+    public String visitAddition(CalcParser.AdditionContext ctx) {
         visitChildren(ctx);
         if (ctx.getChildCount() == 1) {
             System.out.println(ctx.getChild(0));
