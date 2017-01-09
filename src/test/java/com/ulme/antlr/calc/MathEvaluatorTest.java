@@ -16,6 +16,7 @@ public class MathEvaluatorTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"Primitive value", "1", 1},
+                {"Add two values", "1+2", 3},
                 {"Chain calculation", "3+42+5+6", 56},
         });
     }
