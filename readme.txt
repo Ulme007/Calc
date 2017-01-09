@@ -1,9 +1,9 @@
 Show the parsed Antlr tree:
 
-mvn test -PShowTree
+mvn compile -PShowTree
 
 Print out the parsed tokens:
 
-mvn test -PPrintToken
+mvn compile -PPrintToken
 
 

@@ -1,7 +1,16 @@
 grammar Calc;
 
-addition: links=addition '+' rechts=ZAHL #Plus
-        | zahl=ZAHL #Zahl
-        ;
+programm: (println ';')+;
 
-ZAHL: [0-9]+;
+expression: left=expression '+' right=NUMBER #Plus
+          | left=expression '-' right=NUMBER #Minus
+          | left=expression '/' right=NUMBER #Div
+          | left=expression '*' right=NUMBER #Mult
+          | number=NUMBER #Number
+          ;
+
+println: 'println(' argument=expression ')' ;
+
+NUMBER: [0-9]+;
+
+WHITESPACE: [ \t\n\r]+ -> skip;

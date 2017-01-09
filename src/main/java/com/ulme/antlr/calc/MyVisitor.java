@@ -1,16 +1,50 @@
 package com.ulme.antlr.calc;
 
+import java.io.PrintStream;
+
 public class MyVisitor extends CalcBaseVisitor<Long> {
+
+    private PrintStream out;
+
+    public MyVisitor(PrintStream out) {
+        super();
+        this.out = out;
+    }
+
+    @Override
+    public Long visitPrintln(CalcParser.PrintlnContext ctx) {
+        Long result = visit(ctx.argument);
+        out.println(result);
+        return null;
+    }
 
     @Override
     public Long visitPlus(CalcParser.PlusContext ctx) {
         return visitChildren(ctx) +
-                Long.parseLong(ctx.rechts.getText());
+                Long.parseLong(ctx.right.getText());
     }
 
     @Override
-    public Long visitZahl(CalcParser.ZahlContext ctx) {
-        return Long.parseLong(ctx.zahl.getText());
+    public Long visitMinus(CalcParser.MinusContext ctx) {
+        return visitChildren(ctx) -
+                Long.parseLong(ctx.right.getText());
+    }
+
+    @Override
+    public Long visitDiv(CalcParser.DivContext ctx) {
+        return visitChildren(ctx) /
+                Long.parseLong(ctx.right.getText());
+    }
+
+    @Override
+    public Long visitMult(CalcParser.MultContext ctx) {
+        return visitChildren(ctx) *
+                Long.parseLong(ctx.right.getText());
+    }
+
+    @Override
+    public Long visitNumber(CalcParser.NumberContext ctx) {
+        return Long.parseLong(ctx.number.getText());
     }
 
     @Override
