@@ -1,8 +1,9 @@
-Baum anschauen:
+Show the parsed Antlr tree:
 
-java -cp target/classes:lib/antlr-4.6-complete.jar org.antlr.v4.gui.TestRig com.ulme.antlr.calc.Calc addition -gui target/classes/code.demo
+mvn test -PShowTree
 
-Tokens ausgeben:
+Print out the parsed tokens:
 
-java -cp target/classes:lib/antlr-4.6-complete.jar org.antlr.v4.gui.TestRig com.ulme.antlr.calc.Calc addition -tokens target/classes/code.demo
+mvn test -PPrintToken
+
 
