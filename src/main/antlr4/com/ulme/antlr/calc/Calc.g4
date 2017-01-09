@@ -1,6 +1,7 @@
 grammar Calc;
 
-addition: addition '+' ZAHL
-        | ZAHL;
+addition: links=addition '+' rechts=ZAHL #Plus
+        | zahl=ZAHL #Zahl
+        ;
 
 ZAHL: [0-9]+;

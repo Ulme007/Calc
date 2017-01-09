@@ -9,22 +9,22 @@ import java.io.IOException;
 
 public class MathEvaluator {
 
-    static void evaluateFile(String filename) throws IOException {
+    static Long evaluateFile(String filename) throws IOException {
         ANTLRInputStream antlrInputStream = new ANTLRFileStream(filename);
-        evaluate(antlrInputStream);
+        return evaluate(antlrInputStream);
     }
 
-    static void evaluateExpression(String expression) {
+    static Long evaluateExpression(String expression) {
         ANTLRInputStream antlrInputStream = new ANTLRInputStream(expression);
-        evaluate(antlrInputStream);
+        return evaluate(antlrInputStream);
     }
 
-    private static void evaluate(ANTLRInputStream antlrInputStream) {
+    private static Long evaluate(ANTLRInputStream antlrInputStream) {
         CalcLexer calcLexer = new CalcLexer(antlrInputStream);
         CommonTokenStream commonTokenStream = new CommonTokenStream(calcLexer);
         CalcParser calcParser = new CalcParser(commonTokenStream);
 
         ParseTree parseTree = calcParser.addition();
-        new MyVisitor().visit(parseTree);
+        return new MyVisitor().visit(parseTree);
     }
 }
