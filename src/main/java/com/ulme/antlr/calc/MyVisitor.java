@@ -20,8 +20,10 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
     @Override
     public Long visitPlus(CalcParser.PlusContext ctx) {
-        return visitChildren(ctx) +
-                Long.parseLong(ctx.right.getText());
+        String right = ctx.right.getText();
+        Long aLong = visitChildren(ctx);
+        return aLong +
+                Long.parseLong(right);
     }
 
     @Override
