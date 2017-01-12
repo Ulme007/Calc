@@ -6,7 +6,7 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
     private PrintStream out;
 
-    public MyVisitor(PrintStream out) {
+    MyVisitor(PrintStream out) {
         super();
         this.out = out;
     }
@@ -20,43 +20,34 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
     @Override
     public Long visitPlus(CalcParser.PlusContext ctx) {
-        String right = ctx.right.getText();
-        Long aLong = visitChildren(ctx);
-        return aLong +
-                Long.parseLong(right);
+        Long left = visit(ctx.left);
+        Long right = visit(ctx.right);
+        return left + right;
     }
 
     @Override
     public Long visitMinus(CalcParser.MinusContext ctx) {
-        return visitChildren(ctx) -
-                Long.parseLong(ctx.right.getText());
+        Long left = visit(ctx.left);
+        Long right = visit(ctx.right);
+        return left - right;
     }
 
     @Override
     public Long visitDiv(CalcParser.DivContext ctx) {
-        return visitChildren(ctx) /
-                Long.parseLong(ctx.right.getText());
+        Long left = visit(ctx.left);
+        Long right = visit(ctx.right);
+        return left / right;
     }
 
     @Override
     public Long visitMult(CalcParser.MultContext ctx) {
-        return visitChildren(ctx) *
-                Long.parseLong(ctx.right.getText());
+        Long left = visit(ctx.left);
+        Long right = visit(ctx.right);
+        return left * right;
     }
 
     @Override
     public Long visitNumber(CalcParser.NumberContext ctx) {
         return Long.parseLong(ctx.number.getText());
-    }
-
-    @Override
-    protected Long aggregateResult(Long aggregate, Long nextResult) {
-        if (aggregate == null) {
-            return nextResult;
-        }
-        if (nextResult == null) {
-            return aggregate;
-        }
-        return aggregate + nextResult;
     }
 }

@@ -30,8 +30,8 @@ public class MathEvaluatorTest {
                 {"Add two values", "println(7/2);", "3" + System.lineSeparator()},
                 {"Add two values", "println(8-2+5);", "11" + System.lineSeparator()},
                 {"Add two values", "println(8/2*4);", "16" + System.lineSeparator()},
-//                {"Add two values", "println(2+3*3)", "11" + System.lineSeparator()},
-//                {"Add two values", "println(9-2*3)", "3" + System.lineSeparator()},
+                {"Add two values", "println(2+3*3);", "11" + System.lineSeparator()},
+                {"Add two values", "println(9-2*3);", "3" + System.lineSeparator()},
         });
     }
 

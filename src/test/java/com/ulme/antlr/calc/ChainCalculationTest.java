@@ -13,7 +13,7 @@ public class ChainCalculationTest {
 
         try (PrintStream printStream = new PrintStream(byteArrayOutputStream)) {
             MathEvaluator mathEvaluator = new MathEvaluator(printStream);
-            mathEvaluator.evaluateExpression("println(1+2+4);");
+            mathEvaluator.evaluateExpression("println(2+3*4);");
         }
 
         //assertEquals(description, result, byteArrayOutputStream.toString());
