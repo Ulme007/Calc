@@ -32,6 +32,10 @@ public class MathEvaluatorTest {
                 {"Add two values", "println(8/2*4);", "16" + System.lineSeparator()},
                 {"Add two values", "println(2+3*3);", "11" + System.lineSeparator()},
                 {"Add two values", "println(9-2*3);", "3" + System.lineSeparator()},
+
+                {"Use a variable", "int foo; foo = 42; println(foo);", "42" + System.lineSeparator()},
+                {"Use a variable and add a value", "int foo; foo = 42; println(foo+2);", "44" + System.lineSeparator()},
+                {"Add two variables", "int a; int b; a = 2; b = 3; println(a+b);", "5" + System.lineSeparator()},
         });
     }
 
