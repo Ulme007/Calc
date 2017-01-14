@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.Token;
 
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MyVisitor extends CalcBaseVisitor<Long> {
@@ -66,6 +67,15 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
         // create a local variables map
         variables = new HashMap<>();
+
+        List<CalcParser.ExpressionContext> expressions = ctx.arguments.expressions;
+        List<CalcParser.VarDeclarationContext> declarations = functionDefinitionContext.params.declarations;
+        for (int i = 0; i < declarations.size(); i++) {
+            CalcParser.VarDeclarationContext varDeclarationContext = declarations.get(i);
+            String variableName = varDeclarationContext.varName.getText();
+            Long value = visit(expressions.get(i));
+            variables.put(variableName, value);
+        }
 
         visit(functionDefinitionContext.statements);
         Long result = visit(functionDefinitionContext.returnValue);

@@ -1,9 +1,4 @@
-int primitive() {
-    int i;
-    i = 4;
-    return i;
+int add(int a, int b) {
+    return a + b;
 }
-int i;
-i = 42;
-println(primitive());
-println(i);
+println(add(5,8));

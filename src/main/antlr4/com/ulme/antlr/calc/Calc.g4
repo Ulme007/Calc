@@ -20,9 +20,17 @@ varDeclaration: 'int' varName=IDENTIFIER ;
 
 assignment: varName=IDENTIFIER '=' expr=expression ;
 
-functionDefinition: 'int' funcName=IDENTIFIER '(' ')' '{' statements=statementList 'return' returnValue=expression ';' '}' ;
+functionDefinition: 'int' funcName=IDENTIFIER '(' params=parameterDeclaration ')' '{' statements=statementList 'return' returnValue=expression ';' '}' ;
 
-functionCall: funcName=IDENTIFIER '(' ')' ;
+parameterDeclaration: declarations+=varDeclaration (',' declarations+=varDeclaration)*
+                    |
+                    ;
+
+functionCall: funcName=IDENTIFIER '(' arguments=expressionList ')' ;
+
+expressionList: expressions+=expression (',' expressions+=expression)*
+              |
+              ;
 
 statementList: (statement ';')* ;
 

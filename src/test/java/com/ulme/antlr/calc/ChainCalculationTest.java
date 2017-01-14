@@ -13,17 +13,12 @@ public class ChainCalculationTest {
     public void test() throws Exception {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        String expression = "int primitive() {\n" +
-                "    int i;\n" +
-                "    i = 4;\n" +
-                "    return i;\n" +
+        String expression = "int add(int a, int b) {\n" +
+                "    return a + b;\n" +
                 "}\n" +
-                "int i;\n" +
-                "i = 42;\n" +
-                "println(primitive());\n" +
-                "println(i);";
+                "println(add(5,8));";
 
-        String result = "4" + System.lineSeparator() + "42" + System.lineSeparator();
+        String result = "13" + System.lineSeparator();
 
         try (PrintStream printStream = new PrintStream(byteArrayOutputStream)) {
             MathEvaluator mathEvaluator = new MathEvaluator(printStream);
