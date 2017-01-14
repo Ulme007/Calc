@@ -1,6 +1,6 @@
-grammar Calc;
+ grammar Calc;
 
-programm: (statement ';')+;
+programm: ((statement ';') | functionDefinition)+ ;
 
 statement: println
          | varDeclaration
@@ -13,11 +13,18 @@ expression: left=expression '/' right=expression #Div
           | left=expression '+' right=expression #Plus
           | number=NUMBER                        #Number
           | varName=IDENTIFIER                   #Variable
+          | functionCall                         #funcCallExpression
           ;
 
-varDeclaration: 'int' varName=IDENTIFIER;
+varDeclaration: 'int' varName=IDENTIFIER ;
 
-assignment: varName=IDENTIFIER '=' expr=expression;
+assignment: varName=IDENTIFIER '=' expr=expression ;
+
+functionDefinition: 'int' funcName=IDENTIFIER '(' ')' '{' statements=statementList 'return' returnValue=expression ';' '}' ;
+
+functionCall: funcName=IDENTIFIER '(' ')' ;
+
+statementList: (statement ';')* ;
 
 println: 'println(' argument=expression ')' ;
 

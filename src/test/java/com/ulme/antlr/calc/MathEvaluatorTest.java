@@ -36,6 +36,24 @@ public class MathEvaluatorTest {
                 {"Use a variable", "int foo; foo = 42; println(foo);", "42" + System.lineSeparator()},
                 {"Use a variable and add a value", "int foo; foo = 42; println(foo+2);", "44" + System.lineSeparator()},
                 {"Add two variables", "int a; int b; a = 2; b = 3; println(a+b);", "5" + System.lineSeparator()},
+
+                {"Call primitive function", "int randomNumber() { return 4; } println(randomNumber());", "4" + System.lineSeparator()},
+                {"Call function with expression", "int primitive() {\n" +
+                        "    int i;\n" +
+                        "    i = 4;\n" +
+                        "    return i;\n" +
+                        "}\n" +
+                        "println(primitive());", "4" + System.lineSeparator()},
+
+                {"Global and local variables with same name","int primitive() {\n" +
+                        "    int i;\n" +
+                        "    i = 4;\n" +
+                        "    return i;\n" +
+                        "}\n" +
+                        "int i;\n" +
+                        "i = 42;\n" +
+                        "println(primitive());\n" +
+                        "println(i);", "4" + System.lineSeparator() + "42" + System.lineSeparator()},
         });
     }
 

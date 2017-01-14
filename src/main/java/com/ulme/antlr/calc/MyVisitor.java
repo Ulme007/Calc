@@ -1,5 +1,7 @@
 package com.ulme.antlr.calc;
 
+import org.antlr.v4.runtime.Token;
+
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +10,7 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
     private PrintStream out;
     private Map<String, Long> variables = new HashMap<>();
+    private Map<String, CalcParser.FunctionDefinitionContext> functions = new HashMap<>();
 
     MyVisitor(PrintStream out) {
         super();
@@ -52,6 +55,31 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
     @Override
     public Long visitNumber(CalcParser.NumberContext ctx) {
         return Long.parseLong(ctx.number.getText());
+    }
+
+    @Override
+    public Long visitFunctionCall(CalcParser.FunctionCallContext ctx) {
+        CalcParser.FunctionDefinitionContext functionDefinitionContext = functions.get(ctx.funcName.getText());
+
+        //save global variables map
+        Map<String, Long> oldVariables = this.variables;
+
+        // create a local variables map
+        variables = new HashMap<>();
+
+        visit(functionDefinitionContext.statements);
+        Long result = visit(functionDefinitionContext.returnValue);
+
+        // set back global variables map
+        variables = oldVariables;
+
+        return result;
+    }
+
+    @Override
+    public Long visitFunctionDefinition(CalcParser.FunctionDefinitionContext ctx) {
+        functions.put(ctx.funcName.getText(), ctx);
+        return null;
     }
 
     @Override

@@ -1,1 +1,1 @@
-println(2+3*4);
+int randomNumber() { return 4; } println(randomNumber())
