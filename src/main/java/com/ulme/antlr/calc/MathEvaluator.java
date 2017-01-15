@@ -7,13 +7,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Set;
 
 public class MathEvaluator {
 
     private PrintStream printStream;
 
-    public MathEvaluator(PrintStream printStream) {
+    MathEvaluator(PrintStream printStream) {
         this.printStream = printStream;
     }
 

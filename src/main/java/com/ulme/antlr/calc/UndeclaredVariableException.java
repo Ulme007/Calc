@@ -6,7 +6,7 @@ public class UndeclaredVariableException extends CompileException {
 
     private String varName;
 
-    public UndeclaredVariableException(Token varNameToken) {
+    UndeclaredVariableException(Token varNameToken) {
         super(varNameToken);
         varName = varNameToken.getText();
     }

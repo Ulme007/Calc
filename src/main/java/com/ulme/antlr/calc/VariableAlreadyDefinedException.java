@@ -6,7 +6,7 @@ public class VariableAlreadyDefinedException extends CompileException {
 
     private final String varName;
 
-    public VariableAlreadyDefinedException(Token varNameToken) {
+    VariableAlreadyDefinedException(Token varNameToken) {
         super(varNameToken);
         varName = varNameToken.getText();
     }

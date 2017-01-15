@@ -1,7 +1,5 @@
 package com.ulme.antlr.calc;
 
-import org.antlr.v4.runtime.Token;
-
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
