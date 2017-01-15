@@ -110,6 +110,16 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
     }
 
     @Override
+    public Long visitBranch(CalcParser.BranchContext ctx) {
+        Long condition = visit(ctx.condition);
+        if (condition == 0L) {
+            return visit(ctx.onFalse);
+        } else {
+            return visit(ctx.onTrue);
+        }
+    }
+
+    @Override
     public Long visitAssignment(CalcParser.AssignmentContext ctx) {
         Long value = visit(ctx.expr);
         String varName = ctx.varName.getText();

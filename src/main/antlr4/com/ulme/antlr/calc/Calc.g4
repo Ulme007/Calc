@@ -1,11 +1,18 @@
 grammar Calc;
 
-programm: ((statement ';') | functionDefinition)+ ;
+programm: (statement | functionDefinition)+ ;
 
-statement: println
-         | varDeclaration
-         | assignment
+statement: println ';'
+         | varDeclaration ';'
+         | assignment ';'
+         | branch
          ;
+
+branch: 'if' '(' condition=expression ')' onTrue=block 'else' onFalse=block
+      ;
+
+block: '{' statement* '}'
+     ;
 
 expression: left=expression '/' right=expression #Div
           | left=expression '*' right=expression #Mult
@@ -32,7 +39,7 @@ expressionList: expressions+=expression (',' expressions+=expression)*
               |
               ;
 
-statementList: (statement ';')* ;
+statementList: statement* ;
 
 println: 'println(' argument=expression ')' ;
 

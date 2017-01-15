@@ -1,0 +1,6 @@
+int primitive() {
+    int i;
+    i = 4;
+    return i;
+}
+println(primitive());

@@ -5,9 +5,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class MathEvaluatorTest {
 
     @Parameterized.Parameters
-    public static Collection<Object[]> data() {
+    public static Collection<Object[]> data() throws IOException {
         return Arrays.asList(new Object[][]{
                 {"Primitive value", "println(1);", "1" + System.lineSeparator()},
                 {"Add two values", "println(1+2);", "3" + System.lineSeparator()},
@@ -32,42 +35,28 @@ public class MathEvaluatorTest {
                 {"Add two values", "println(8/2*4);", "16" + System.lineSeparator()},
                 {"Add two values", "println(2+3*3);", "11" + System.lineSeparator()},
                 {"Add two values", "println(9-2*3);", "3" + System.lineSeparator()},
-
                 {"Use a variable", "int foo; foo = 42; println(foo);", "42" + System.lineSeparator()},
                 {"Use a variable and add a value", "int foo; foo = 42; println(foo+2);", "44" + System.lineSeparator()},
                 {"Add two variables", "int a; int b; a = 2; b = 3; println(a+b);", "5" + System.lineSeparator()},
-
                 {"Call primitive function", "int randomNumber() { return 4; } println(randomNumber());", "4" + System.lineSeparator()},
-                {"Call function with expression",
-                        "int primitive() {\n" +
-                                "    int i;\n" +
-                                "    i = 4;\n" +
-                                "    return i;\n" +
-                                "}\n" +
-                                "println(primitive());", "4" + System.lineSeparator()},
 
-                {"Global and local variables with same name",
-                        "int primitive() {\n" +
-                                "    int i;\n" +
-                                "    i = 4;\n" +
-                                "    return i;\n" +
-                                "}\n" +
-                                "int i;\n" +
-                                "i = 42;\n" +
-                                "println(primitive());\n" +
-                                "println(i);", "4" + System.lineSeparator() + "42" + System.lineSeparator()},
+                example("function/without_parameter",
+                        "4" + System.lineSeparator()),
 
-                {"Add function call with parameter",
-                        "int add(int a, int b) {\n" +
-                                "    return a + b;\n" +
-                                "}\n" +
-                                "println(add(5,8));", "13" + System.lineSeparator()},
-                {"Overload functions",
-                        "int x() { return 1; } " +
-                                "int x(int i) { return i; } " +
-                                "println(x());" +
-                                "println(x(2));", "1" + System.lineSeparator() +
-                        "2" + System.lineSeparator()},
+                example("function/scopes",
+                        "4" + System.lineSeparator() + "42" + System.lineSeparator()),
+
+                example("function/with_parameter",
+                        "13" + System.lineSeparator()),
+
+                example("function/overloading",
+                        "1" + System.lineSeparator() + "2" + System.lineSeparator()),
+
+                example("branch/if_int_false",
+                        "42" + System.lineSeparator()),
+
+                example("branch/if_int_true",
+                        "81" + System.lineSeparator()),
         });
     }
 
@@ -79,6 +68,16 @@ public class MathEvaluatorTest {
         this.description = description;
         this.expression = expression;
         this.result = result;
+    }
+
+    private static String[] example(String name, String expectedResult) throws IOException {
+        try (InputStream in = MathEvaluatorTest.class.getResourceAsStream("/examples/" + name + ".txt")) {
+            if (in == null) {
+                throw new IllegalArgumentException("example '" + name + "' not found");
+            }
+            String code = new Scanner(in, "UTF-8").useDelimiter("\\A").next();
+            return new String[]{name, code, expectedResult};
+        }
     }
 
     @Test

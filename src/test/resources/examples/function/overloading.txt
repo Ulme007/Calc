@@ -1,0 +1,1 @@
+int x() { return 1; } int x(int i) { return i; } println(x());println(x(2));
