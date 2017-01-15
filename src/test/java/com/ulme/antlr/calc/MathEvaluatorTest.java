@@ -38,31 +38,35 @@ public class MathEvaluatorTest {
                 {"Add two variables", "int a; int b; a = 2; b = 3; println(a+b);", "5" + System.lineSeparator()},
 
                 {"Call primitive function", "int randomNumber() { return 4; } println(randomNumber());", "4" + System.lineSeparator()},
-                {"Call function with expression", "int primitive() {\n" +
-                        "    int i;\n" +
-                        "    i = 4;\n" +
-                        "    return i;\n" +
-                        "}\n" +
-                        "println(primitive());", "4" + System.lineSeparator()},
+                {"Call function with expression",
+                        "int primitive() {\n" +
+                                "    int i;\n" +
+                                "    i = 4;\n" +
+                                "    return i;\n" +
+                                "}\n" +
+                                "println(primitive());", "4" + System.lineSeparator()},
 
-                {"Global and local variables with same name", "int primitive() {\n" +
-                        "    int i;\n" +
-                        "    i = 4;\n" +
-                        "    return i;\n" +
-                        "}\n" +
-                        "int i;\n" +
-                        "i = 42;\n" +
-                        "println(primitive());\n" +
-                        "println(i);", "4" + System.lineSeparator() + "42" + System.lineSeparator()},
+                {"Global and local variables with same name",
+                        "int primitive() {\n" +
+                                "    int i;\n" +
+                                "    i = 4;\n" +
+                                "    return i;\n" +
+                                "}\n" +
+                                "int i;\n" +
+                                "i = 42;\n" +
+                                "println(primitive());\n" +
+                                "println(i);", "4" + System.lineSeparator() + "42" + System.lineSeparator()},
 
-                {"Add function call with parameter", "int add(int a, int b) {\n" +
-                        "    return a + b;\n" +
-                        "}\n" +
-                        "println(add(5,8));", "13" + System.lineSeparator()},
-                {"Overload functions", "int x() { return 1; } " +
-                        "int x(int i) { return i; } " +
-                        "println(x());" +
-                        "println(x(2));", "1" + System.lineSeparator() +
+                {"Add function call with parameter",
+                        "int add(int a, int b) {\n" +
+                                "    return a + b;\n" +
+                                "}\n" +
+                                "println(add(5,8));", "13" + System.lineSeparator()},
+                {"Overload functions",
+                        "int x() { return 1; } " +
+                                "int x(int i) { return i; } " +
+                                "println(x());" +
+                                "println(x(2));", "1" + System.lineSeparator() +
                         "2" + System.lineSeparator()},
         });
     }
