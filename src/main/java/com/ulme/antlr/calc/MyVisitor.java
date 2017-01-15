@@ -61,6 +61,9 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
     @Override
     public Long visitFunctionCall(CalcParser.FunctionCallContext ctx) {
         CalcParser.FunctionDefinitionContext functionDefinitionContext = functions.get(ctx.funcName.getText());
+        if (functionDefinitionContext == null) {
+            throw new UndefinedFunctionException(ctx.funcName);
+        }
 
         //save global variables map
         Map<String, Long> oldVariables = this.variables;
@@ -68,6 +71,7 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
         // create a local variables map
         variables = new HashMap<>();
 
+        // set variables from function call
         List<CalcParser.ExpressionContext> expressions = ctx.arguments.expressions;
         List<CalcParser.VarDeclarationContext> declarations = functionDefinitionContext.params.declarations;
         for (int i = 0; i < declarations.size(); i++) {

@@ -50,4 +50,17 @@ public class ErrorHandlingTest {
                     "int x;");
         }
     }
+
+    @Test
+    public void ifFunctionCallNotDefinedThrowsUndefinedFunctionException() throws Exception {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        thrown.expect(UndefinedFunctionException.class);
+        thrown.expectMessage("1:8 call to undefined function: <someUndefinedFunction>");
+
+        try (PrintStream printStream = new PrintStream(byteArrayOutputStream)) {
+            MathEvaluator mathEvaluator = new MathEvaluator(printStream);
+            mathEvaluator.evaluateExpression("println(someUndefinedFunction());");
+        }
+    }
 }
