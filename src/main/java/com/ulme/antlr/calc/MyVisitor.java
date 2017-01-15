@@ -92,6 +92,9 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
     @Override
     public Long visitFunctionDefinition(CalcParser.FunctionDefinitionContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.params.declarations.size());
+        if (functions.containsKey(functionName)) {
+            throw new FunctionAlreadyDefinedException(ctx.funcName);
+        }
         functions.put(functionName, ctx);
         return null;
     }

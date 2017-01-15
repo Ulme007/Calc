@@ -63,4 +63,18 @@ public class ErrorHandlingTest {
             mathEvaluator.evaluateExpression("println(someUndefinedFunction());");
         }
     }
+
+    @Test
+    public void declareFunctionTwiceThrowsFunctionAlreadyDefinedException() throws Exception {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        thrown.expect(FunctionAlreadyDefinedException.class);
+        thrown.expectMessage("2:4 function already defined: <x>");
+
+        try (PrintStream printStream = new PrintStream(byteArrayOutputStream)) {
+            MathEvaluator mathEvaluator = new MathEvaluator(printStream);
+            mathEvaluator.evaluateExpression("int x() { return 0; } \n" +
+                                                        "int x() { return 0; }");
+        }
+    }
 }

@@ -1,4 +1,4 @@
- grammar Calc;
+grammar Calc;
 
 programm: ((statement ';') | functionDefinition)+ ;
 
