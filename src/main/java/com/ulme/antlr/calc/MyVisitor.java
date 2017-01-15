@@ -58,7 +58,8 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
     @Override
     public Long visitFunctionCall(CalcParser.FunctionCallContext ctx) {
-        CalcParser.FunctionDefinitionContext functionDefinitionContext = functions.get(ctx.funcName.getText());
+        String functionName = getFunctionName(ctx.funcName.getText(), ctx.arguments.expressions.size());
+        CalcParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);
         if (functionDefinitionContext == null) {
             throw new UndefinedFunctionException(ctx.funcName);
         }
@@ -90,7 +91,8 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
 
     @Override
     public Long visitFunctionDefinition(CalcParser.FunctionDefinitionContext ctx) {
-        functions.put(ctx.funcName.getText(), ctx);
+        String functionName = getFunctionName(ctx.funcName.getText(), ctx.params.declarations.size());
+        functions.put(functionName, ctx);
         return null;
     }
 
@@ -123,5 +125,19 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
             throw new UndeclaredVariableException(ctx.varName);
         }
         return value;
+    }
+
+    private String getFunctionName(String functionName, int parameterSize) {
+        StringBuilder result = new StringBuilder();
+        result.append(functionName);
+        result.append("(");
+        for (int i = 0; i < parameterSize; i++) {
+            result.append("int");
+            if (i < parameterSize - 1) {
+                result.append(",");
+            }
+        }
+        result.append(")");
+        return result.toString();
     }
 }

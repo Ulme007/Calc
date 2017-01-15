@@ -45,7 +45,7 @@ public class MathEvaluatorTest {
                         "}\n" +
                         "println(primitive());", "4" + System.lineSeparator()},
 
-                {"Global and local variables with same name","int primitive() {\n" +
+                {"Global and local variables with same name", "int primitive() {\n" +
                         "    int i;\n" +
                         "    i = 4;\n" +
                         "    return i;\n" +
@@ -59,6 +59,11 @@ public class MathEvaluatorTest {
                         "    return a + b;\n" +
                         "}\n" +
                         "println(add(5,8));", "13" + System.lineSeparator()},
+                {"Overload functions", "int x() { return 1; } " +
+                        "int x(int i) { return i; } " +
+                        "println(x());" +
+                        "println(x(2));", "1" + System.lineSeparator() +
+                        "2" + System.lineSeparator()},
         });
     }
 
