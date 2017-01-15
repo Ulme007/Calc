@@ -3,6 +3,7 @@ grammar Calc;
 programm: (statement | functionDefinition)+ ;
 
 statement: println ';'
+         | print ';'
          | varDeclaration ';'
          | assignment ';'
          | branch
@@ -45,6 +46,8 @@ expressionList: expressions+=expression (',' expressions+=expression)*
 statementList: statement* ;
 
 println: 'println(' argument=expression ')' ;
+
+print: 'print(' argument=expression ')' ;
 
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9]*;
 

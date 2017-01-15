@@ -83,6 +83,7 @@ public class MathEvaluatorTest {
                 {"or left and right false", "println(0 || 0);", "0" + System.lineSeparator()},
                 example("operators/or_skip_right",
                         "1" + System.lineSeparator() + "1" + System.lineSeparator()),
+                {"print", "print(42);", "42"},
         });
     }
 

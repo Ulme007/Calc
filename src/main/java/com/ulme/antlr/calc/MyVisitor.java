@@ -24,6 +24,13 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
     }
 
     @Override
+    public Long visitPrint(CalcParser.PrintContext ctx) {
+        Long result = visit(ctx.argument);
+        out.print(result);
+        return null;
+    }
+
+    @Override
     public Long visitPlus(CalcParser.PlusContext ctx) {
         Long left = visit(ctx.left);
         Long right = visit(ctx.right);
