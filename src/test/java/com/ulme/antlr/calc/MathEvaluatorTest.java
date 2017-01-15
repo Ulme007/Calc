@@ -57,6 +57,32 @@ public class MathEvaluatorTest {
 
                 example("branch/if_int_true",
                         "81" + System.lineSeparator()),
+
+                {"lower than true", "println(1 < 2);", "1" + System.lineSeparator()},
+                {"lower than false", "println(2 < 2);", "0" + System.lineSeparator()},
+
+                {"lower or equal than true", "println(2 <= 2);", "1" + System.lineSeparator()},
+                {"lower or equal than false", "println(3 <= 2);", "0" + System.lineSeparator()},
+
+                {"greater than true", "println(2 > 1);", "1" + System.lineSeparator()},
+                {"greater than false", "println(2 > 2);", "0" + System.lineSeparator()},
+
+                {"greater or equal than true", "println(2 >= 2);", "1" + System.lineSeparator()},
+                {"greater or equal than false", "println(1 >= 2);", "0" + System.lineSeparator()},
+
+                {"and true", "println(1 && 1);", "1" + System.lineSeparator()},
+                {"and left false", "println(0 && 1);", "0" + System.lineSeparator()},
+                {"and right false", "println(1 && 0);", "0" + System.lineSeparator()},
+                {"and left and right false", "println(0 && 0);", "0" + System.lineSeparator()},
+                example("operators/and_skip_right",
+                        "0" + System.lineSeparator() + "0" + System.lineSeparator()),
+
+                {"or true", "println(1 || 1);", "1" + System.lineSeparator()},
+                {"or left false", "println(0 || 1);", "1" + System.lineSeparator()},
+                {"or right false", "println(1 || 0);", "1" + System.lineSeparator()},
+                {"or left and right false", "println(0 || 0);", "0" + System.lineSeparator()},
+                example("operators/or_skip_right",
+                        "1" + System.lineSeparator() + "1" + System.lineSeparator()),
         });
     }
 

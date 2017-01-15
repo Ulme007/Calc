@@ -14,13 +14,16 @@ branch: 'if' '(' condition=expression ')' onTrue=block 'else' onFalse=block
 block: '{' statement* '}'
      ;
 
-expression: left=expression '/' right=expression #Div
-          | left=expression '*' right=expression #Mult
-          | left=expression '-' right=expression #Minus
-          | left=expression '+' right=expression #Plus
-          | number=NUMBER                        #Number
-          | varName=IDENTIFIER                   #Variable
-          | functionCall                         #funcCallExpression
+expression: left=expression '/' right=expression                        #Div
+          | left=expression '*' right=expression                        #Mult
+          | left=expression '-' right=expression                        #Minus
+          | left=expression '+' right=expression                        #Plus
+          | left=expression operator=('<' | '<=' | '>' | '>=') right=expression  #Relational
+          | left=expression '&&' right=expression                        #And
+          | left=expression '||' right=expression                        #Or
+          | number=NUMBER                                               #Number
+          | varName=IDENTIFIER                                          #Variable
+          | functionCall                                                #funcCallExpression
           ;
 
 varDeclaration: 'int' varName=IDENTIFIER ;

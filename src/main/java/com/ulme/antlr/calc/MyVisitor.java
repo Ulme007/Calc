@@ -57,6 +57,55 @@ public class MyVisitor extends CalcBaseVisitor<Long> {
     }
 
     @Override
+    public Long visitRelational(CalcParser.RelationalContext ctx) {
+        Long left = visit(ctx.left);
+        Long right = visit(ctx.right);
+        switch (ctx.operator.getText()) {
+            case "<":
+                if (left < right) {
+                    return 1L;
+                }
+                break;
+            case "<=":
+                if (left <= right) {
+                    return 1L;
+                }
+                break;
+            case ">":
+                if (left > right) {
+                    return 1L;
+                }
+                break;
+            case ">=":
+                if (left >= right) {
+                    return 1L;
+                }
+                break;
+        }
+        return 0L;
+    }
+
+    @Override
+    public Long visitAnd(CalcParser.AndContext ctx) {
+        Long left = visit(ctx.left);
+        // ignore right, if left is false by and-operator
+        if (left != 0) {
+            return visit(ctx.right);
+        }
+        return left;
+    }
+
+    @Override
+    public Long visitOr(CalcParser.OrContext ctx) {
+        Long left = visit(ctx.left);
+        // ignore right, if left is true by or-operator
+        if (left == 0) {
+            return visit(ctx.right);
+        }
+        return left;
+    }
+
+    @Override
     public Long visitFunctionCall(CalcParser.FunctionCallContext ctx) {
         String functionName = getFunctionName(ctx.funcName.getText(), ctx.arguments.expressions.size());
         CalcParser.FunctionDefinitionContext functionDefinitionContext = functions.get(functionName);
